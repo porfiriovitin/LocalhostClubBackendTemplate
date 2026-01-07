@@ -11,6 +11,7 @@ datasource db {
 model User {
     id BigInt @id @default(autoincrement())
     name String?
+    role String @default("user")
     email String @unique
     password String
 
