@@ -1,9 +1,8 @@
 import { Router } from "express";
-import { demoRoutes } from "./demo-routes";
+import { userRoutes } from "./user-routes.js";
 
 
 const routes = Router()
-
-routes.use("/", demoRoutes)
+routes.use("/", userRoutes)
 
 export { routes }
