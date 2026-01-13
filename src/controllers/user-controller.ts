@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
 import { prisma } from "../database/prisma.js";
-import bcrypt from "bcryptjs";
 import { AppError } from "../utils/AppError.js";
 import { registerSchema, loginSchema } from "../validation/user-schema.js";
 import { authConfig } from "../configs/auth.js";
 import jwt from "jsonwebtoken";
+import { hash, compare } from "bcrypt";
 
 export class UserController {
   /// :: Register Controller
@@ -30,7 +30,7 @@ export class UserController {
     }
 
     const saltRounds = 10;
-    const hashedPassword = await bcrypt.hash(password, saltRounds);
+    const hashedPassword = await hash(password, saltRounds);
 
     await prisma.user.create({
       data: { name, email, password: hashedPassword },
@@ -57,7 +57,7 @@ export class UserController {
       throw new AppError("Email or/and password not registered", 404);
     }
 
-    const isPasswordValid = await bcrypt.compare(password, user.password);
+    const isPasswordValid = await compare(password, user.password);
 
     if (!isPasswordValid) {
       throw new AppError("Email or/and password not registered", 401);
@@ -90,7 +90,4 @@ export class UserController {
     return res.status(200).json({ message: "Logout successful" });
   }
 
-  async render(req: Request, res: Response) {
-    return res.sendFile("login.html", { root: "src/pages" });
-  }
 }
