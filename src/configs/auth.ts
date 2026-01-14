@@ -1,12 +1,8 @@
-const secretKey = process.env.JWT_SECRET_KEY;
-
-if (!secretKey) {
-  throw new Error("Missing env var JWT_SECRET_KEY");
-}
+import { env } from "../env.js";
 
 export const authConfig = {
   jwt: {
-    secretKey,      
+    secret: env.JWT_SECRET_KEY,      
     expiresIn: "1d",
   },
 } as const;

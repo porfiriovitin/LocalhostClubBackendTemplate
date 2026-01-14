@@ -63,9 +63,9 @@ export class UserController {
       throw new AppError("Email or/and password not registered", 401);
     }
 
-    const { secretKey, expiresIn } = authConfig.jwt;
+    const { secret, expiresIn } = authConfig.jwt;
 
-    const token = jwt.sign({ role: user.role }, secretKey, {
+    const token = jwt.sign({ role: user.role }, secret, {
       expiresIn,
       subject: String(user.id),
       algorithm: "HS256",
