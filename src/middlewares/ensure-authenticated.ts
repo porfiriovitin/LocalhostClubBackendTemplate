@@ -20,8 +20,8 @@ export function ensureAuthenticated(
   }
 
   try {
-    const { secretKey } = authConfig.jwt;
-    const decoded = jwt.verify(token, secretKey) as TokenPayload;
+    const { secret } = authConfig.jwt;
+    const decoded = jwt.verify(token, secret) as TokenPayload;
     req.user = {
       id: Number(decoded.sub!),
       role: decoded.role,
