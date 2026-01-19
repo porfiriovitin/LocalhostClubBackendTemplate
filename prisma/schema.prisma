@@ -7,11 +7,16 @@ datasource db {
   provider = "postgresql"
 }
 
+enum Role {
+  user
+  admin
+}
+
 /// :: Default for login and auth.
 model User {
     id BigInt @id @default(autoincrement())
     name String?
-    role String @default("user")
+    role Role @default(user)
     email String @unique
     password String
 

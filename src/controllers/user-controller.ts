@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { prisma } from "../database/prisma.js";
 import { AppError } from "../utils/AppError.js";
-import { registerSchema, loginSchema } from "../validation/user-schema.js";
+import { registerSchema, loginSchema } from "../schemas/user-schema.js"
 import { authConfig } from "../configs/auth.js";
 import jwt from "jsonwebtoken";
 import { hash, compare } from "bcrypt";
