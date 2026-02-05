@@ -8,4 +8,6 @@ userRoutes.post("/register", userController.register);
 userRoutes.post("/login", userController.login);
 userRoutes.post("/logout", userController.logout);
 
+userRoutes.get("/me", userController.userInfo);
+
 export { userRoutes };

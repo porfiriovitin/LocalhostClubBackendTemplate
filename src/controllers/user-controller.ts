@@ -89,5 +89,34 @@ export class UserController {
     });
     return res.status(200).json({ message: "Logout successful" });
   }
+  
+  /// :: User Info Controller (For authContext middlewares)
+  async userInfo(req: Request, res: Response) {
+    const userId = req.user?.id;
+
+    if (!userId) {
+      throw new AppError("Unauthorized", 401);
+    }
+
+    const user = await prisma.user.findUnique({
+      where: { id: BigInt(userId) },
+      select: {
+        id: false,
+        name: true,
+        email: true,
+        role: true,
+      },
+    });
+
+    if (!user) {
+      throw new AppError("User not found", 404);
+    }
+
+    return res.status(200).json({
+      name: user.name,
+      email: user.email,
+      role: user.role,
+    });
+  }
 
 }
